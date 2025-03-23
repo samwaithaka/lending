@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: Lending
+    
+app:
+  constants:
+    score-threshold: 500
+    ws:
+      url:
+        customer: https://kycapitest.credable.io/service/customerWsdl.wsdl
+    scoring-engine:
+      client:
+        url: https://scoringtest.credable.io/api/v1/client/createClient
+      initiate-url: https://scoringtest.credable.io/api/v1/scoring/initiateQueryScore
+      query-url: https://scoringtest.credable.io/api/v1/scoring/queryScore/
+      token: 
