@@ -1,0 +1,33 @@
+#version: "3.9"
+services:
+  lenging-backend:
+    image: lenging-backend:v1
+    container_name: lenging-backend
+    restart: always
+    ports:
+      - 8082:8082
+    environment:
+      - TZ=Africa/Nairobi
+    volumes:
+      - /var/logs:/logs
+      - /tmp:/tmp
+    networks:
+      - lmsnetwork
+  tradata-backend:
+    image: tradata-backend:v1
+    container_name: tradata-backend
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+      - TZ=Africa/Nairobi
+    volumes:
+      - /var/logs:/logs
+      - /tmp:/tmp
+    networks:
+      - lmsnetwork
+networks:
+  lmsnetwork:
+    ipam:
+      config:
+        - subnet: 17.20.0.0/16

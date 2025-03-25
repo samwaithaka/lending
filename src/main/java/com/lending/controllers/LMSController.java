@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.lending.dto.LoanRequestDto;
 import com.lending.dto.ResponseDto;
+import com.lending.entities.Customer;
+import com.lending.enums.StatusCode;
 import com.lending.services.CBSService;
 import com.lending.services.LoanRequestService;
 
@@ -18,24 +20,30 @@ import lombok.AllArgsConstructor;
 public class LMSController {
 	
 	private CBSService cbsService;
-	private LoanRequestService loanRequestService;
+	private LoanRequestService loanService;
 	
 	@GetMapping("/customer/{customerNumber}")
 	public ResponseDto subscribe(@PathVariable String customberNumber) {
-		cbsService.getKYC(customberNumber);
-		return null;
+		Customer customer = cbsService.getKYC(customberNumber);
+		ResponseDto responseDto = new ResponseDto();
+		if(customer != null) {
+			responseDto.setCustomerName(customer.getFirstName());
+			responseDto.setStatusCode(StatusCode.VALID);
+			responseDto.setStatusMessage("Valid customer");
+		}
+		return responseDto;
 	}
 	
 	@PostMapping("/loan-request")
 	public ResponseDto requestLoan(@RequestBody LoanRequestDto loanRequestDto) {
-		loanRequestService.requestLoan(loanRequestDto);
+		loanService.requestLoan(loanRequestDto);
 		//StatusCode.APPROVED;
 		return null;
 	}
 	
 	@GetMapping("/loan-status/{customerNumber}")
 	public ResponseDto checkLoanStatus(@PathVariable String customberNumber) {
-		loanRequestService.checkLoanStatus(customberNumber);
+		loanService.checkLoanStatus(customberNumber);
 		return null;
 	}
 }
