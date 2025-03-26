@@ -1,6 +1,6 @@
 # LMS Backend Deployment
 
-## Creating Postgres database
+## Creating Postgres Database
 `create database lmsdb;`
 
 `create user lmsuser with password '******';`
