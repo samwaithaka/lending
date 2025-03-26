@@ -3,6 +3,7 @@
 How to deploy:
 
 git clone https://github.com/samwaithaka/lending
+
 git clone https://github.com/samwaithaka/trandata
 
 cd ../trandata
