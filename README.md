@@ -6,7 +6,7 @@ git clone https://github.com/samwaithaka/lending
 
 git clone https://github.com/samwaithaka/trandata
 
-cd ../trandata
+cd trandata
 
 docker build -t trandata-backend:v1 .
 
