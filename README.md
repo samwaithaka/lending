@@ -28,3 +28,9 @@ git clone https://github.com/samwaithaka/trandata
 `mvn clean package && docker build -t lending-backend:v1 .`
 
 `docker compose up --build -d && docker logs -f`
+
+## Viewing and Testing API Endpoints
+
+Swagger UI has been used to view and test API endpoints. Go to the URL below after deployment:
+
+http://{host}:8080/swagger-ui/index.html
