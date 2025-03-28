@@ -54,7 +54,7 @@ public class LMSController {
 	public ResponseDto checkLoanStatus(@PathVariable String customberNumber) {
 		StatusCode statusCode = loanRequestService.checkLoanStatus(customberNumber);
 		ResponseDto response = new ResponseDto();
-		response.setStatusCode(StatusCode.VALID);
+		response.setStatusCode(statusCode);
 		if(statusCode == StatusCode.APPROVED) {
 			response.setStatusMessage("Loan request approved");
 		} else {
