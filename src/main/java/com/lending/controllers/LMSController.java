@@ -25,25 +25,41 @@ public class LMSController {
 	@GetMapping("/customer/{customerNumber}")
 	public ResponseDto subscribe(@PathVariable String customberNumber) {
 		Customer customer = cbsService.getKYC(customberNumber);
-		ResponseDto responseDto = new ResponseDto();
+		ResponseDto response = new ResponseDto();
 		if(customer != null) {
-			responseDto.setCustomerName(customer.getFirstName());
-			responseDto.setStatusCode(StatusCode.VALID);
-			responseDto.setStatusMessage("Valid customer");
+			response.setCustomerName(customer.getFirstName() + " " + customer.getLastName());
+			response.setStatusCode(StatusCode.VALID);
+			response.setStatusMessage("Customer successfully subscribed");
+		} else {
+			response.setStatusCode(StatusCode.INVALID);
+			response.setStatusMessage("Customer number could not be validated");
 		}
-		return responseDto;
+		return response;
 	}
 	
 	@PostMapping("/loan-request")
 	public ResponseDto requestLoan(@RequestBody LoanRequestDto loanRequestDto) {
-		loanService.requestLoan(loanRequestDto);
-		//StatusCode.APPROVED;
-		return null;
+		StatusCode statusCode = loanRequestService.requestLoan(loanRequestDto);
+		ResponseDto response = new ResponseDto();
+		response.setStatusCode(statusCode);
+		if(statusCode == StatusCode.APPROVED) {
+			response.setStatusMessage("Loan request approved");
+		} else {
+			response.setStatusMessage("Loan request approved");
+		}
+		return response;
 	}
 	
 	@GetMapping("/loan-status/{customerNumber}")
 	public ResponseDto checkLoanStatus(@PathVariable String customberNumber) {
-		loanService.checkLoanStatus(customberNumber);
-		return null;
+		StatusCode statusCode = loanRequestService.checkLoanStatus(customberNumber);
+		ResponseDto response = new ResponseDto();
+		response.setStatusCode(StatusCode.VALID);
+		if(statusCode == StatusCode.APPROVED) {
+			response.setStatusMessage("Loan request approved");
+		} else {
+			response.setStatusMessage("Loan not approved");
+		}
+		return response;
 	}
 }
